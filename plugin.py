@@ -1051,8 +1051,8 @@ class Sigyn(callbacks.Plugin,plugins.ChannelDBHandler):
 
     def _ip_ranges (self, h):
         if '/' in h:
-            if h.startswith('gateway/web/freenode/ip.'):
-               h = h.replace('gateway/web/freenode/ip.','')
+            if h.startswith('gateway/web/PirateIRC/ip.'):
+               h = h.replace('gateway/web/PirateIRC/ip.','')
                return [ipaddress.ip_network(u'%s/27' % h, strict=False).with_prefixlen.encode('utf-8'),ipaddress.ip_network(u'%s/26' % h, strict=False).with_prefixlen.encode('utf-8'),ipaddress.ip_network(u'%s/25' % h, strict=False).with_prefixlen.encode('utf-8'),ipaddress.ip_network(u'%s/24' % h, strict=False).with_prefixlen.encode('utf-8')]
             return [h]
         if utils.net.isIPV4(h):
@@ -1129,12 +1129,12 @@ class Sigyn(callbacks.Plugin,plugins.ChannelDBHandler):
         prefix = prefix
         (nick,ident,host) = ircutils.splitHostmask(prefix)
         if '/' in host:
-            if host.startswith('gateway/web/freenode'):
+            if host.startswith('gateway/web/PirateIRC'):
                 if 'ip.' in host:
                     self.cache[prefix] = '*@%s' % host.split('ip.')[1]
                 else:
                     # syn offline / busy
-                    self.cache[prefix] = '%s@gateway/web/freenode/*' % ident
+                    self.cache[prefix] = '%s@gateway/web/PirateIRC/*' % ident
             elif host.startswith('gateway/tor-sasl'):
                 self.cache[prefix] = '*@%s' % host
             elif host.startswith('gateway/vpn') or host.startswith('nat/'):
@@ -1541,7 +1541,7 @@ class Sigyn(callbacks.Plugin,plugins.ChannelDBHandler):
         try:
             (targets,text) = msg.args
             i = self.getIrc(irc)
-            reg = r".*-\s+([a-z]+\.freenode\.net)\[.*Users:\s+(\d{2,6})\s+"
+            reg = r".*-\s+([a-z]+\.pirateirc\.net)\[.*Users:\s+(\d{2,6})\s+"
             result = re.match(reg,text)
             # here we store server name and users count, and we will ping the server with the most users
             if result:
