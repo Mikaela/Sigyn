@@ -3348,7 +3348,7 @@ class Sigyn(callbacks.Plugin,plugins.ChannelDBHandler):
                         continue
                 if i.netsplit:
                     continue
-                if 'gateway/shell/matrix.org' in msg.prefix:
+                if 'gateway/bridge/matrix/diasp.in' in msg.prefix:
                     continue
                 life = self.registryValue('massJoinLife',channel=channel)
                 limit = self.registryValue('massJoinPermit',channel=channel)
@@ -3467,7 +3467,7 @@ class Sigyn(callbacks.Plugin,plugins.ChannelDBHandler):
                         comment = 'join/part flood in %s' % channel
                         self.ban(irc,msg.nick,msg.prefix,mask,self.registryValue('klineDuration'),comment,self.registryValue('klineMessage'),log)
                         self.setRegistryValue('lastActionTaken',time.time(),channel=channel)
-                    if len(reason) and not reason.startswith('Kicked by @appservice-irc:matrix.org') and not reason.startswith('requested by'):
+                    if len(reason) and not reason.startswith('Kicked by @pirateirc:diasp.in') and not reason.startswith('requested by'):
                         bad = self.isChannelMassRepeat(irc,msg,channel,mask,reason)
                         if bad:
                             # todo, needs to see more on that one to avoid false positive
