@@ -966,8 +966,8 @@ class Sigyn(callbacks.Plugin,plugins.ChannelDBHandler):
 
     def _ip_ranges (self, h):
         if '/' in h:
-            if h.startswith('gateway/web/freenode/ip.'):
-               h = h.replace('gateway/web/freenode/ip.','')
+            if h.startswith('gateway/web/PirateIRC/ip.'):
+               h = h.replace('gateway/web/PirateIRC/ip.','')
                return [ipaddress.ip_network('%s/27' % h, strict=False).with_prefixlen,ipaddress.ip_network('%s/26' % h, strict=False).with_prefixlen,ipaddress.ip_network('%s/25' % h, strict=False).with_prefixlen,ipaddress.ip_network('%s/24' % h, strict=False).with_prefixlen]
             return [h]
         if utils.net.isIPV4(h):
@@ -1044,13 +1044,13 @@ class Sigyn(callbacks.Plugin,plugins.ChannelDBHandler):
         prefix = prefix
         (nick,ident,host) = ircutils.splitHostmask(prefix)
         if '/' in host:
-            if host.startswith('gateway/web/freenode'):
+            if host.startswith('gateway/web/PirateIRC'):
                 if 'ip.' in host:
                     self.cache[prefix] = '*@%s' % host.split('ip.')[1]
                 else:
                     # syn offline / busy
-                    self.cache[prefix] = '%s@gateway/web/freenode/*' % ident
-            elif host.startswith('gateway/tor-sasl'):
+                    self.cache[prefix] = '%s@gateway/web/PirateIRC/*' % ident
+            elif host.startswith('gateway/tor'):
                 self.cache[prefix] = '*@%s' % host
             elif host.startswith('gateway/vpn') or host.startswith('nat/'):
                 if ident.startswith('~'):
@@ -1460,7 +1460,7 @@ class Sigyn(callbacks.Plugin,plugins.ChannelDBHandler):
         try:
             (targets,text) = msg.args
             i = self.getIrc(irc)
-            reg = r".*-\s+([a-z]+\.freenode\.net)\[.*Users:\s+(\d{2,6})\s+"
+            reg = r".*-\s+([a-z]+\.PirateIRC\.net)\[.*Users:\s+(\d{2,6})\s+"
             result = re.match(reg,text)
             # here we store server name and users count, and we will ping the server with the most users
             if result:
@@ -2471,7 +2471,7 @@ class Sigyn(callbacks.Plugin,plugins.ChannelDBHandler):
                     if i.defcon or len(queue) > 1:
                         for m in queue:
                             for q in m.split(','):
-                                if not (ircdb.checkCapability(q, 'protected') or target == 'freenode-connect'):
+                                if not (ircdb.checkCapability(q, 'protected') or target == 'PirateIRC-connect'):
                                     mask = self.prefixToMask(irc,q)
                                     uid = random.randint(0,1000000)
                                     self.kline(irc,q,mask,self.registryValue('klineDuration'),'%s - snote flood on %s' % (uid,target))
@@ -3306,7 +3306,7 @@ class Sigyn(callbacks.Plugin,plugins.ChannelDBHandler):
                         continue
                 if i.netsplit:
                     continue
-                if 'gateway/shell/matrix.org' in msg.prefix:
+                if 'gateway/bridge/matrix/diasp.in' in msg.prefix:
                     continue
                 life = self.registryValue('massJoinLife',channel=channel)
                 limit = self.registryValue('massJoinPermit',channel=channel)
@@ -3504,7 +3504,7 @@ class Sigyn(callbacks.Plugin,plugins.ChannelDBHandler):
                         continue
                     bad = False
                     flag = ircdb.makeChannelCapability(channel, 'broken')
-                    if 'tor-sasl' in mask:
+                    if 'tor' in mask:
                         continue
                     if ircdb.checkCapability(msg.prefix, flag):
                         bad = self.isBadOnChannel(irc,channel,'broken',mask)

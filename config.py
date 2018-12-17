@@ -53,7 +53,7 @@ conf.registerGlobalValue(Sigyn, 'enable',
      registry.Boolean(False, """set to True to enable kill and klines, otherwise bot will only report to logChannel"""))
 
 conf.registerGlobalValue(Sigyn, 'mainChannel',
-     registry.String("#freenode","""main channel, where bot stay opped and op staffer on +z"""))
+     registry.String("#opers","""main channel, where bot stay opped and op staffer on +z"""))
 
 conf.registerGlobalValue(Sigyn, 'snoopChannel',
      registry.String("", """channel where services stuff are announced"""))
@@ -80,9 +80,9 @@ conf.registerGlobalValue(Sigyn,'resolverTimeout',
 conf.registerGlobalValue(Sigyn, 'klineDuration',
      registry.Integer(-1, """kline duration, in minutes, with -1, bot will not kill or kline"""))
 conf.registerGlobalValue(Sigyn, 'klineMessage',
-     registry.String("Please do not spam users or channels on freenode. If in error, please contact kline@freenode.net.", """default reason used in kline's message"""))
+     registry.String("Please do not spam users or channels on PirateIRC. If in error, please contact banned@pirateparty.org.au.", """default reason used in kline's message"""))
 conf.registerChannelValue(Sigyn, 'killMessage',
-     registry.String("Spam is off topic on freenode.", """kill reason"""))
+     registry.String("Spam is off topic on PirateIRC.", """kill reason"""))
      
 conf.registerGlobalValue(Sigyn, 'operatorNick',
      registry.String("", """oper's nick, must be filled""", private=True))
@@ -117,7 +117,7 @@ conf.registerGlobalValue(Sigyn, 'saslLife',
 conf.registerGlobalValue(Sigyn, 'saslDuration',
      registry.PositiveInteger(240, """dline duration in minutes"""))
 conf.registerGlobalValue(Sigyn, 'saslMessage',
-     registry.String("Banned due to too many failed login attempts in a short period, email kline@freenode.net when corrected. Thanks!", """dline message"""))
+     registry.String("Banned due to too many failed login attempts in a short period, email banned@pirateparty.org.au when corrected. Thanks!", """dline message"""))
 
 conf.registerChannelValue(Sigyn, 'lastActionTaken',
      registry.Float(0.0, """store date of last action taken in a channel"""))
@@ -141,13 +141,13 @@ conf.registerGlobalValue(Sigyn, 'useOperServ',
      registry.Boolean(False, """use OperServ AKILL instead of KLINE"""))
 
 conf.registerGlobalValue(Sigyn,'msgInviteConfirm',
-     registry.String("Your request has been submitted to freenode staff.","""sent to op who requested /invite"""))
+     registry.String("Your request has been submitted to PirateIRC staff.","""sent to op who requested /invite"""))
 
 conf.registerGlobalValue(Sigyn,'msgTooManyGhost',
-     registry.String("Banned due to too many connections in a short period, email kline@freenode.net when corrected.","""sent to op who requested /invite"""))
+     registry.String("Banned due to too many connections in a short period, email banned@pirateparty.org.au when corrected.","""sent to op who requested /invite"""))
 
 conf.registerGlobalValue(Sigyn,'staffCloak',
-     registry.String("freenode/staff/","""used to identify staffers"""))
+     registry.String("PirateIRC/staff/","""used to identify staffers"""))
 
 # to fight some specific spambot
 conf.registerGlobalValue(Sigyn, 'channelCreationPermit',
@@ -253,7 +253,7 @@ conf.registerChannelValue(Sigyn, 'brokenLife',
 conf.registerChannelValue(Sigyn, 'brokenDuration',
     registry.PositiveInteger(1,"""kline duration in minutes"""))
 conf.registerChannelValue(Sigyn, 'brokenReason',
-    registry.String("Your irc client seems broken and is flooding lots of channels. Banned for %s min, if in error, please contact kline@freenode.net.","""kline reason"""))
+    registry.String("Your irc client seems broken and is flooding lots of channels. Banned for %s min, if in error, please contact banned@pirateparty.org.au.","""kline reason"""))
 conf.registerChannelValue(Sigyn, 'brokenHost',
     registry.CommaSeparatedListOfStrings([''], """list of knowns broken host"""))
 
